@@ -1,5 +1,7 @@
 import "./main.css"
 import {LoaderComponent} from "./components/loader"
+import { WeatherDay } from "./models/weatherDay";
+import { WeatherDayComponent } from "./components/weatherDayComponent";
 
 class MainView
 {
@@ -18,6 +20,7 @@ class MainView
         this.loaderIcon.setVisible(false);
         this.loaderContainer.appendChild(this.loaderIcon.domObject);
         
+        this.days = [];
     }
 
     setupEventListeners() {
@@ -43,9 +46,17 @@ class MainView
             {
                 const data = await this.getWeatherData(searchValue);
                 console.log(data);
+                this.clearData();
+                data.days.forEach(dayJson => {
+                    const dayObject = new WeatherDay(dayJson);
+                    const dayComponent = new WeatherDayComponent(dayObject, document);
+                    this.weatherDataGrid.appendChild(dayComponent.domObject);
+                    this.days.push(dayObject);
+                });
             }
             catch(error)
             {
+                console.log(error);
                  this.searchInput.setCustomValidity("Please input a valid location");
                  this.searchInput.reportValidity();
             }
@@ -61,10 +72,11 @@ class MainView
     {
         //TODO: add the correct location in the query
         const url = new URL('https://weather.visualcrossing.com/VisualCrossingWebServices/rest/services/timeline/' 
-            + location + "?"
+            + location + "/next7days" + "?"
         );
         const searchParams = url.searchParams;
         searchParams.append("include", "days");
+        searchParams.append("unitGroup", "metric");
         //Ideally, the key shouldn't be exposed. For the sake of the exercise, this free API key is included in the repo.
         //Potentially, it might be safe guarded properly in the future.
         searchParams.append("key", "K2N24927W29CPAGBXSMBDULMB");
@@ -78,6 +90,12 @@ class MainView
         const data = await response.json();
 
         return data;
+    }
+
+    clearData()
+    {
+        this.days = [];
+        this.weatherDataGrid.innerHTML = '';
     }
 }
 

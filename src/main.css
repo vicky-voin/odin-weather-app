@@ -29,26 +29,53 @@ h1
 .search-form
 {
     margin: 24px;
+    background-color: white;
+    border-radius: 16px;
+    padding: 8px;
+    display: flex;
 }
 
 .search-form > #weather-search
 {
     height: 2rem;
-    border: none;
     padding: 8px;
     border-radius: 8px;
+}
+
+.search-form > #weather-search,
+.search-form > #weather-search:focus,
+.search-form > #weather-search:valid
+{
+    border: none;
+    outline: none;
+    background-color: transparent;
+}
+
+.search-form:has(#weather-search:focus)
+{
+    box-shadow: 0px 4px 12px 3px rgba(0,0,0,0.2);
+}
+
+.search-form > button
+{
+    background-image: url("./icons/search-web.svg");
+    width: 2rem;
+    height: 2rem;
+    border: none;
+    outline: none;
+    background-color: transparent;
 }
 
 .weather-data
 {
     margin: 24px;
     display: grid;
-    grid-template-columns: repeat(7,70px);
+    grid-auto-flow: column;
+    grid-template-columns: repeat(8, 1fr);
     column-gap: 8px;
 }
 
-.weather-item
+.weather-data > .weather-day-component:first-of-type
 {
-    background-color: white;
-    height: 100px;
+    border: 2px solid rgb(14, 153, 233);
 }
