@@ -1,0 +1,40 @@
+*
+{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+html
+{
+    font-family: Arial, Helvetica, sans-serif;
+    font-size: 14px;
+}
+
+body{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    background-image: linear-gradient(135deg, rgb(205, 253, 255), rgb(79, 208, 240));
+    background-repeat: no-repeat;
+}
+
+h1
+{
+    color: white;
+}
+
+.search-form
+{
+    margin: 24px;
+}
+
+.search-form > #weather-search
+{
+    height: 2rem;
+    border: none;
+    padding: 8px;
+    border-radius: 8px;
+}
