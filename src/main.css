@@ -38,3 +38,17 @@ h1
     padding: 8px;
     border-radius: 8px;
 }
+
+.weather-data
+{
+    margin: 24px;
+    display: grid;
+    grid-template-columns: repeat(7,70px);
+    column-gap: 8px;
+}
+
+.weather-item
+{
+    background-color: white;
+    height: 100px;
+}
